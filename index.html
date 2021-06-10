@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Interactive pricing component</title>
+    <link rel="stylesheet" href="styles/index.css" />
+  </head>
+  <body>
+    <main>
+      <section class="introduction">
+        <h1>Simple, traffic-based pricing</h1>
+        <p>Sign-up for our 30-day trial.</p>
+        <p>No credit card required.</p>
+      </section>
+      <div class="slider-card">
+        <h2>100K PAGEVIEWS</h2>
+        <div class="bar-container">
+          <input type="range" min="0" max="30" id="slider" value="15" />
+          <div class="emptybar"></div>
+          <div class="progressbar"></div>
+        </div>
+        <p class="cost">
+          $<span class="amount">16</span>.00 <span class="month">/ month</span>
+        </p>
+        <div class="billing-container">
+          <span>Monthly Billing</span
+          ><label class="switch">
+            <input type="checkbox" />
+            <span class="switcher round"></span>
+          </label>
+          <span>Yearly Billing</span>
+          <span class="discount small">-25%</span>
+          <span class="discount lg">25% Discount</span>
+        </div>
+      </div>
+      <section class="CTA-container">
+        <div class="check-list">
+          <div class="check-item">
+            <img src="/images/icon-check.svg" alt="check" />
+            <p>Unlimited websites</p>
+          </div>
+          <div class="check-item">
+            <img src="/images/icon-check.svg" alt="check" />
+            <p>100% data ownership</p>
+          </div>
+          <div class="check-item">
+            <img src="/images/icon-check.svg" alt="check" />
+            <p>Email reports</p>
+          </div>
+        </div>
+        <div class="btn-container">
+          <button>Start my trail</button>
+        </div>
+      </section>
+    </main>
+    <script>
+      const slider = document.querySelector("#slider");
+      const progressbar = document.querySelector(".progressbar");
+      const amount = document.querySelector(".amount");
+
+      slider.oninput = function () {
+        progressbar.style.width = this.value * (100 / 30) + "%";
+        amount.innerHTML = this.value;
+      };
+    </script>
+  </body>
+</html>
