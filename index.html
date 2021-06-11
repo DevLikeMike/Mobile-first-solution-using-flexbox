@@ -20,9 +20,9 @@
         <p>No credit card required.</p>
       </section>
       <div class="slider-card">
-        <h2>100K PAGEVIEWS</h2>
+        <h2><span class="pageviews">100K</span> PAGEVIEWS</h2>
         <div class="bar-container">
-          <input type="range" min="0" max="30" id="slider" value="15" />
+          <input type="range" min="1" max="5" id="slider" value="3" />
           <div class="emptybar"></div>
           <div class="progressbar"></div>
         </div>
@@ -64,10 +64,40 @@
       const slider = document.querySelector("#slider");
       const progressbar = document.querySelector(".progressbar");
       const amount = document.querySelector(".amount");
+      const pgviews = document.querySelector(".pageviews");
 
       slider.oninput = function () {
-        progressbar.style.width = this.value * (100 / 30) + "%";
-        amount.innerHTML = this.value;
+        switch (slider.value) {
+          case "1":
+            pgviews.innerHTML = "10K";
+            amount.innerHTML = "8";
+            progressbar.style.width = "0%";
+            break;
+          case "2":
+            pgviews.innerHTML = "50K";
+            amount.innerHTML = "12";
+            progressbar.style.width = "25%";
+            break;
+          case "3":
+            pgviews.innerHTML = "100K";
+            amount.innerHTML = "16";
+            progressbar.style.width = "50%";
+            break;
+          case "4":
+            pgviews.innerHTML = "500K";
+            amount.innerHTML = "24";
+            progressbar.style.width = "75%";
+            break;
+          case "5":
+            pgviews.innerHTML = "1M";
+            amount.innerHTML = "36";
+            progressbar.style.width = "100%";
+            break;
+          default:
+            pgviews.innerHTML = "100k";
+            progressbar.style.width = "50%";
+            break;
+        }
       };
     </script>
   </body>

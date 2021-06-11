@@ -1,6 +1,6 @@
 # Frontend Mentor - Interactive pricing component solution
 
-This is a solution to the [Interactive pricing component challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-pricing-component-t0m8PIyY8). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Interactive pricing component challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-pricing-component-t0m8PIyY8). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -16,8 +16,6 @@ This is a solution to the [Interactive pricing component challenge on Frontend M
 - [Author](#author)
 - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -30,83 +28,130 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![](./screenshot.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [HERE](https://your-live-site-url.com)
 
 ## My process
 
+### To get started
+
+I start by building my folder system. I use SCSS so I try to build my global styles first then structure my colors into variables, then establishing my media query breakpoints. After my styling is ready to go, I like to build what I call "Helper" classes, essentially classes to quickly make a section flex or justify and align items to the center. These classes help speed up the styling process, but also keey a DRY style sheet.
+
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Semantic HTML5 markup
+- SCSS
+- Minimal Flexbox
+- Vanilla JavaScript(Roughly 8 or so lines)
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+Though this challenge is considered to be a "junior" level two course it had some major take aways. The first being the slider component. The javascript of the range input is very simple, however the styling can be tricky. I opted to create a "progress bar" to show the fill side of the slider, and another empty to lay under the progress bar, only to be covered if the value increases. I feel like this approach is rudimentary, but very effective.
 
-To see how you can add code snippets, see below:
+The html like so:
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<div class="bar-container">
+  <!-- Set value initally to half -->
+  <input type="range" min="0" max="30" id="slider" value="15" />
+  <div class="emptybar"></div>
+  <div class="progressbar"></div>
+</div>
 ```
+
+Styled like this(using SCSS):
+
 ```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+/* Container for range input */
+.bar-container {
+  position: relative;
+  width: 100%;
+  margin: 2rem auto;
+
+  @include desktop {
+    order: 3;
+  }
+
+  // SLIDER
+  input[type="range"] {
+    /* Remove the default range bar */
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    outline: none;
+    border-radius: 9px;
+  }
+  /* Styles for thumb */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Creating the circle with size of 2.8 diameter */
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    border: 0;
+    /* Set the background to use the arrows given in the images folder */
+    background-image: url("../images/icon-slider.svg");
+    background-size: fill;
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* Default the background to the dark cyan color */
+    background-color: primary(cyan-dark);
+    box-shadow: 0 10px 13px primary(cyan-dark);
+    /* Transform to better align with range slider input */
+    transform: translateY(5px);
+    cursor: pointer;
+    position: relative;
+    /* Make sure thumb is over the progress and empty bar */
+    z-index: 3;
+  }
+
+  /* Cyan color bar to the left of thumb */
+  .progressbar {
+    pointer-events: none;
+    /* Width is initially set to fifty to match slider value */
+    /* Width is adjusted in javascript (see index.html) */
+    width: 50%;
+    height: 10px;
+    background-color: primary(cyan);
+    border-radius: 20px;
+    /* position to the slider-container element */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    /* Position under the thumb but above the empty bar */
+    z-index: 2;
+  }
+
+  .emptybar {
+    pointer-events: none;
+    /* Can take full width since its positioned under the rest */
+    width: 100%;
+    height: 10px;
+    background-color: neutral(light-gray-blue1);
+    border-radius: 20px;
+    /* Position to slider container element, right of thumb */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    /* empty < progress < thumb */
+    z-index: 1;
+  }
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+In addition to the slider, the only other "challenging" section of the challenge was moving the "cost" above the range input for desktop. I did this using flex box, and order properties, but it could easily be achieved with grid as well.
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+In the future, I would plan to better the practices of the slider, and look into libraries for react. Or possibly even create one to assist in styling said input ranges. This was definitely the hardest part of the challenge.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Website - [Michael Hall](https://michaelhall.io)
+- Frontend Mentor - [@devlikemike](https://www.frontendmentor.io/profile/yourusername)
+- Twitter - [@devlikemike](https://www.twitter.com/devlikemike)
+- Github - [@devlikemike](https://github.com/DevLikeMike)
