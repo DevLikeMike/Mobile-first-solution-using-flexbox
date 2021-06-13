@@ -32,7 +32,7 @@
         <div class="billing-container">
           <span>Monthly Billing</span
           ><label class="switch">
-            <input type="checkbox" />
+            <input type="checkbox" class="toggle" />
             <span class="switcher round"></span>
           </label>
           <span>Yearly Billing</span>
@@ -65,39 +65,82 @@
       const progressbar = document.querySelector(".progressbar");
       const amount = document.querySelector(".amount");
       const pgviews = document.querySelector(".pageviews");
+      const toggle = document.querySelector(".toggle");
+
+      function priceCheck() {
+        if (!toggle.checked) {
+          switch (slider.value) {
+            case "1":
+              pgviews.innerHTML = "10K";
+              amount.innerHTML = "8";
+              progressbar.style.width = "0%";
+              break;
+            case "2":
+              pgviews.innerHTML = "50K";
+              amount.innerHTML = "12";
+              progressbar.style.width = "25%";
+              break;
+            case "3":
+              pgviews.innerHTML = "100K";
+              amount.innerHTML = "16";
+              progressbar.style.width = "50%";
+              break;
+            case "4":
+              pgviews.innerHTML = "500K";
+              amount.innerHTML = "24";
+              progressbar.style.width = "75%";
+              break;
+            case "5":
+              pgviews.innerHTML = "1M";
+              amount.innerHTML = "36";
+              progressbar.style.width = "100%";
+              break;
+            default:
+              pgviews.innerHTML = "100k";
+              progressbar.style.width = "50%";
+              break;
+          }
+        } else if (toggle.checked) {
+          switch (slider.value) {
+            case "1":
+              pgviews.innerHTML = "10K";
+              amount.innerHTML = "6";
+              progressbar.style.width = "0%";
+              break;
+            case "2":
+              pgviews.innerHTML = "50K";
+              amount.innerHTML = "8";
+              progressbar.style.width = "25%";
+              break;
+            case "3":
+              pgviews.innerHTML = "100K";
+              amount.innerHTML = "12";
+              progressbar.style.width = "50%";
+              break;
+            case "4":
+              pgviews.innerHTML = "500K";
+              amount.innerHTML = "18";
+              progressbar.style.width = "75%";
+              break;
+            case "5":
+              pgviews.innerHTML = "1M";
+              amount.innerHTML = "27";
+              progressbar.style.width = "100%";
+              break;
+            default:
+              pgviews.innerHTML = "100k";
+              progressbar.style.width = "50%";
+              break;
+          }
+        }
+      }
+
+      toggle.oninput = function () {
+        priceCheck();
+      };
 
       slider.oninput = function () {
-        switch (slider.value) {
-          case "1":
-            pgviews.innerHTML = "10K";
-            amount.innerHTML = "8";
-            progressbar.style.width = "0%";
-            break;
-          case "2":
-            pgviews.innerHTML = "50K";
-            amount.innerHTML = "12";
-            progressbar.style.width = "25%";
-            break;
-          case "3":
-            pgviews.innerHTML = "100K";
-            amount.innerHTML = "16";
-            progressbar.style.width = "50%";
-            break;
-          case "4":
-            pgviews.innerHTML = "500K";
-            amount.innerHTML = "24";
-            progressbar.style.width = "75%";
-            break;
-          case "5":
-            pgviews.innerHTML = "1M";
-            amount.innerHTML = "36";
-            progressbar.style.width = "100%";
-            break;
-          default:
-            pgviews.innerHTML = "100k";
-            progressbar.style.width = "50%";
-            break;
-        }
+        priceCheck();
       };
     </script>
   </body>
